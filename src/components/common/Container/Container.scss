@@ -1,5 +1,8 @@
 // src/components/common/Container/Container.scss
 .container {
-  margin: 0 var(--s-80);
+  margin: 0 var(--s-8);
   padding: var(--s-16) var(--s-12);
+  @media (min-width: 768px) {
+    margin: 0 var(--s-32);
+  }
 }
