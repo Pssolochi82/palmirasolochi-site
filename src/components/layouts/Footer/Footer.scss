@@ -2,21 +2,22 @@
 .footer {
   margin-top: var(--s-24);
   background: var(--color-primary);
-  border-top: 1px solid var(--color-border);
 
   &__top {
-    margin: 0 var(--s-80);
+    margin: 0 var(--s-8);
     padding: var(--s-16) var(--s-12);
     display: grid;
-    grid-template-columns: 0.5fr;
+    grid-template-columns: 1fr;
     gap: var(--s-16);
 
     @media (min-width: 768px) {
-      grid-template-columns: 0.5fr auto;
+      grid-template-columns: 1fr 1fr; /* brand + cols */
       align-items: start;
     }
+    @media (min-width: 992px) {
+      grid-template-columns: 1fr 1fr; /* mantém 2 áreas: brand e dois menus em grid interno */
+    }
   }
-
   &__brand {
     display: flex;
     align-items: center;
@@ -36,8 +37,12 @@
 
   &__cols {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr 1fr;
     gap: var(--s-16);
+
+    @media (min-width: 576px) {
+      gap: var(--s-24);
+    }
   }
 
   &__heading {
@@ -58,8 +63,16 @@
   &__link {
     color: var(--color-surface);
     text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-6);
+
     &:hover {
       text-decoration: underline;
+    }
+    &:focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
     }
   }
 
