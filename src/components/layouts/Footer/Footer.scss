@@ -1,18 +1,18 @@
 // src/components/layouts/Footer/Footer.scss
 .footer {
   margin-top: var(--s-24);
-  background: var(--color-surface);
+  background: var(--color-primary);
   border-top: 1px solid var(--color-border);
 
   &__top {
     margin: 0 var(--s-80);
     padding: var(--s-16) var(--s-12);
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 0.5fr;
     gap: var(--s-16);
 
     @media (min-width: 768px) {
-      grid-template-columns: 1fr auto;
+      grid-template-columns: 0.5fr auto;
       align-items: start;
     }
   }
@@ -42,7 +42,9 @@
 
   &__heading {
     margin: 0 0 var(--s-8);
-    font-size: var(--fs-md);
+    color: var(--color-surface);
+    font-size: var(--fs-xl);
+    font-weight: 300;
   }
 
   &__list {
@@ -50,11 +52,11 @@
     padding: 0;
     list-style: none;
     display: grid;
-    gap: var(--s-4);
+    gap: var(--s-8);
   }
 
   &__link {
-    color: var(--color-text);
+    color: var(--color-surface);
     text-decoration: none;
     &:hover {
       text-decoration: underline;
@@ -62,14 +64,12 @@
   }
 
   &__bottom {
-    border-top: 1px solid var(--color-border);
     padding: var(--s-8) var(--s-12);
     text-align: center;
-    background: var(--color-bg);
   }
 
   &__legal {
-    color: var(--color-muted);
+    color: var(--color-surface);
     font-size: var(--fs-sm);
   }
 }
