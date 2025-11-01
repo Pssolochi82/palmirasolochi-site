@@ -1,12 +1,12 @@
-// src/components/specific/Projects/HeroProjects.scss
-.projects-hero {
+// src/components/about/HeroAbout/HeroAbout.scss
+.about-hero {
   position: relative;
   padding-block: var(--s-16);
   max-width: var(--layout-max-width);
   margin-inline: auto;
   padding-inline: var(--s-12);
 
-  /* Mobile-first: empilhado */
+  /* ===== Mobile-first: EMPILHADO ===== */
   &__stage {
     position: relative;
     min-block-size: 0;
@@ -36,7 +36,7 @@
     padding: var(--s-16);
     display: grid;
     gap: var(--s-8);
-    margin-top: var(--s-12);
+    margin-top: var(--s-12); /* no mobile fica abaixo da imagem */
   }
 
   &__title {
@@ -67,16 +67,17 @@
     margin-top: var(--s-8);
   }
 
-  /* Desktop: overlay absoluto */
+  /* ===== Desktop: ABSOLUTE overlay (INVERSE) ===== */
   @media (min-width: 768px) {
     &__stage {
       min-block-size: clamp(22rem, 40vw, 46rem);
     }
 
+    /* INVERSE: imagem à DIREITA, card à ESQUERDA */
     &__media {
       position: absolute;
       top: 0;
-      left: 0; /* imagem à ESQUERDA */
+      right: 0; /* imagem encostada à direita por defeito */
       inline-size: 60%;
       aspect-ratio: 16 / 9;
     }
@@ -84,28 +85,29 @@
     &__card {
       position: absolute;
       top: 50%;
-      right: 0; /* card à DIREITA */
+      left: 0; /* card encostado à esquerda por defeito */
       transform: translateY(-50%);
       inline-size: 38%;
       margin-top: 0;
     }
   }
 
-  /* ≥1200px: offsets exatos com clamp para não sair da viewport */
+  /* ===== ≥1200px: offsets exatos, com clamp para não sair da viewport ===== */
   @media (min-width: 1200px) {
+    /* Imagem à direita, mas usar left:40rem conforme pedido.
+       clamp(min: padding, preferred: 40rem, max: 100% - padding - largura da imagem) */
     &__media {
       inline-size: 90%;
-      /* ancorada à esquerda (left: 0) herdado da regra anterior */
+      right: auto;
+      left: clamp(var(--s-12), 40rem, calc(100% - var(--s-12) - 90%));
     }
 
+    /* Card à esquerda com offset por direita 27rem (preferido).
+       clamp(min: padding, preferred: 27rem, max: 100% - padding - largura do card) */
     &__card {
       inline-size: 50%;
-      left: clamp(
-        var(--s-12),
-        60rem,
-        /* valor preferido */ calc(100% - var(--s-12) - 50%) /* não permitir overflow à direita */
-      );
-      right: auto;
+      left: auto;
+      right: clamp(var(--s-12), 27rem, calc(100% - var(--s-12) - 50%));
     }
   }
 }
