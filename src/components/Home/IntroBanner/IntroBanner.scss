@@ -1,0 +1,37 @@
+// src/components/Home/IntroBanner/IntroBanner.scss
+.intro {
+  /* Base visual da faixa */
+  background: var(--color-bg);
+
+  padding-block: var(--s-16);
+
+  &__inner {
+    max-width: var(--layout-max-width);
+    margin-inline: auto;
+    padding-inline: var(--s-12);
+    display: flex;
+    justify-content: center;
+    gap: var(--s-8);
+  }
+
+  &__text {
+    max-width: var(--s-200);
+    margin: 0;
+    font-family: var(--font-Handwritten);
+    font-size: var(--fs-xxl);
+    color: var(--color-text);
+  }
+
+  /* Modificadores de alinhamento */
+  &--left {
+    text-align: left;
+  }
+  &--center {
+    text-align: center;
+  }
+
+  /* Espaçamento compacto */
+  &--compact {
+    padding-block: var(--s-12);
+  }
+}
