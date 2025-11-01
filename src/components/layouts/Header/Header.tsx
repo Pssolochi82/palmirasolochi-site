@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import './Header.scss';
 
-// Passo 1: Import image.
+//  Import image.
 import LogoWebP from '../../../assets/Logo.webp';
 // -----------------------------------------------------------------
 

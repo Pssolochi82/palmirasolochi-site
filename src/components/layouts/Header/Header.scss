@@ -4,7 +4,6 @@
   top: 0;
   inset-inline: 0;
   z-index: 100;
-  background: var(--color-surface);
 
   &__inner {
     margin: 0 var(--s-8);
@@ -77,7 +76,7 @@
       display: grid;
       gap: var(--s-8);
       padding: var(--s-8);
-      background: var(--color-bg);
+
       border: 1px solid var(--color-border);
       border-top: none;
       box-shadow: var(--shadow-md);
