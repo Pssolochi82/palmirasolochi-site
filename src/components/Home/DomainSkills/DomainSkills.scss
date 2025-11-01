@@ -1,0 +1,92 @@
+// src/components/Home/DomainSkills/DomainSkills.scss
+.domainSkills {
+  margin: 0 var(--s-32);
+  padding-block: var(--s-16);
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--s-12);
+    align-items: center;
+
+    @media (min-width: 992px) {
+      grid-template-columns: 1fr 1fr; /* painel | imagem */
+      gap: var(--s-16);
+    }
+  }
+
+  /* Painel à esquerda */
+  &__panel {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    padding: var(--s-16);
+    display: grid;
+    gap: var(--s-8);
+  }
+
+  &__tag {
+    display: inline-block;
+    text-align: center;
+    padding: 6px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: var(--color-bg);
+    font-size: var(--fs-lg);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--color-text);
+    margin-bottom: var(--s-8);
+  }
+
+  &__title {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-style: italic;
+    font-size: clamp(1.25rem, 1.1rem + 1vw, 1.6rem);
+    line-height: 1.15;
+    color: var(--color-text);
+
+    &--mid {
+      margin-top: var(--s-8);
+    }
+  }
+
+  &__list {
+    margin: 0 0 var(--s-8);
+    font-size: var(--fs-sm);
+    letter-spacing: 0.01em;
+    opacity: 0.9;
+  }
+
+  /* Imagem à direita */
+  /* Imagem à direita */
+  &__media {
+    aspect-ratio: 4 / 4;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    @media (min-width: 1200px) {
+      aspect-ratio: 16 / 9;
+    }
+  }
+
+  &__img {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+
+    /* * NOVO: Desloca o ponto focal da imagem para a direita POR PADRÃO (abaixo de 1200px) */
+    object-position: left;
+
+    @media (min-width: 1200px) {
+      /* Em ecrãs grandes, volta a centralizar o ponto focal, se preferir */
+      object-position: center;
+    }
+  }
+}

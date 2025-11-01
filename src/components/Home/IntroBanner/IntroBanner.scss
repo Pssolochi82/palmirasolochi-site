@@ -15,10 +15,10 @@
   }
 
   &__text {
-    max-width: var(--s-200);
+    max-width: var(--s-500);
     margin: 0;
     font-family: var(--font-Handwritten);
-    font-size: var(--fs-xxl);
+    font-size: clamp(1rem, 1rem + 1vw, 2.25rem);
     color: var(--color-text);
   }
 

@@ -1,0 +1,66 @@
+// src/components/Home/ProjectTeaser/ProjectTeaser.scss
+.projTeaser {
+  padding-block: var(--s-16);
+
+  &__header {
+    max-width: var(--layout-max-width);
+    margin-inline: auto;
+    padding-inline: var(--s-12);
+    display: grid;
+    gap: var(--s-8);
+
+    @media (min-width: 768px) {
+      grid-template-columns: 1fr auto;
+      align-items: end;
+    }
+  }
+
+  &__title {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: var(--fs-xl);
+    line-height: 1.2;
+
+    @media (min-width: 768px) {
+      font-size: var(--fs-xxl);
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-start;
+
+    @media (min-width: 768px) {
+      justify-content: flex-end;
+    }
+  }
+
+  &__grid {
+    max-width: var(--layout-max-width);
+    margin-inline: auto;
+    padding-inline: var(--s-12);
+    margin-top: var(--s-12);
+
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--s-12);
+
+    @media (min-width: 576px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @media (min-width: 992px) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  &__card {
+    /* espaço interno do footer/excerpt já vem do Card; apenas ajustes finos aqui, se necessário */
+  }
+
+  &__excerpt {
+    margin: 0;
+    font-size: var(--fs-sm);
+    color: var(--color-muted);
+  }
+}
