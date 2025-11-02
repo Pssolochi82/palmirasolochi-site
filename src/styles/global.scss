@@ -6,10 +6,10 @@
 
 @font-face {
   font-family: 'PalmiraSerif';
-  src: url('../fonts/PlayfairDisplay-Italic.woff2') format('woff2'),
+  src: url('../fonts/PlayfairDisplay-Regular.woff2') format('woff2'),
     /* Preferido: WOFF2 */ url('../fonts/PlayfairDisplay-Italic.woff') format('woff'); /* Fallback: WOFF */
   font-weight: 400;
-  font-style: italic;
+  font-style: normal;
   font-display: swap;
 }
 @font-face {

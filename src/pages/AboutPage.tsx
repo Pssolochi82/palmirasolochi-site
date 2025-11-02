@@ -1,6 +1,7 @@
 // src/pages/AboutPage.tsx
 import React from 'react';
 import HeroAbout from '../components/about/HeroAbout/HeroAbout';
+import IntroBannerAbout from '../components/about/IntroBannerAbout/IntroBannerAbout';
 
 // Import image.
 import hero2 from '../../src/assets/hero-2.webp';
@@ -17,6 +18,13 @@ const AboutPage: React.FC = () => {
         imageAlt='Retrato profissional'
         ctaPrimary={{ label: 'Vamos falar', href: '/contact' }}
         ctaSecondary={undefined}
+      />
+
+      <IntroBannerAbout
+        quotes={[
+          'Se é feito com atenção, não é por acaso.',
+          'Trabalho com foco, clareza e a mesma energia.',
+        ]}
       />
     </main>
   );

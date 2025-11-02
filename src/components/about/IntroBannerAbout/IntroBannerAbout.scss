@@ -1,0 +1,40 @@
+// src/components/Home/IntroBanner/IntroBanner.scss
+.aboutIntro {
+  /* faixa limpa, espaçamento generoso como no mock */
+  padding-block: clamp(var(--s-16), 6vw, var(--s-24));
+  /* Base visual da faixa */
+  background: var(--color-bg);
+  min-height: 260px;
+  display: flex;
+  align-items: center;
+
+  &__inner {
+    max-width: var(--layout-max-width);
+    margin-inline: auto;
+    padding-inline: var(--s-12);
+  }
+
+  &__blockquote {
+    margin: 0;
+    text-align: center;
+  }
+
+  /* linhas da citação (duas no máximo) */
+  &__line {
+    margin: 0;
+    font-family: var(--font-heading); /* Arial primária; preparado para futura serif */
+    font-style: italic;
+    font-weight: 700;
+    line-height: 1.6;
+    color: var(--color-text);
+    opacity: 0.92;
+
+    /* tamanhos próximos do mock, com responsividade suave */
+    font-size: clamp(1rem, 0.95rem + 0.9vw, 1.25rem);
+
+    /* espaçamento vertical entre as duas linhas */
+    &:not(:last-child) {
+      margin-bottom: var(--s-6);
+    }
+  }
+}
