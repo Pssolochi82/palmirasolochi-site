@@ -1,66 +1,89 @@
 // src/components/Home/ProjectTeaser/ProjectTeaser.scss
 .projTeaser {
+  margin: 0 var(--s-32);
   padding-block: var(--s-16);
 
-  &__header {
-    max-width: var(--layout-max-width);
-    margin-inline: auto;
-    padding-inline: var(--s-12);
+  &__grid {
     display: grid;
-    gap: var(--s-8);
+    grid-template-columns: 1fr;
+    gap: var(--s-12);
+    align-items: center;
 
-    @media (min-width: 768px) {
-      grid-template-columns: 1fr auto;
-      align-items: end;
+    @media (min-width: 992px) {
+      grid-template-columns: 1fr 1fr; /* imagem | painel */
+      gap: var(--s-16);
+    }
+  }
+
+  /* Imagem (16:9) */
+  &__media {
+    aspect-ratio: 16 / 9;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+
+  &__img {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
+  /* Painel à direita */
+  &__panel {
+    background: var(--color-surface); /* bege do site */
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    padding: clamp(var(--s-12), 2vw, var(--s-16));
+    display: grid;
+    height: 75%;
+    gap: var(--s-8);
+    min-block-size: 14rem;
+
+    /* centralização vertical suave como no mock */
+    justify-items: center;
+    text-align: center;
+
+    @media (min-width: 992px) {
+      min-block-size: auto;
+      padding: var(--s-16);
     }
   }
 
   &__title {
     margin: 0;
     font-family: var(--font-heading);
-    font-size: var(--fs-xl);
-    line-height: 1.2;
+    font-weight: 700;
+    font-style: italic; /* aproxima do estilo do mock */
+    font-size: clamp(1.25rem, 1.1rem + 1vw, 1.5rem);
+    line-height: 1.25;
+    color: var(--color-text);
+  }
 
-    @media (min-width: 768px) {
-      font-size: var(--fs-xxl);
-    }
+  &__text {
+    margin: 0;
+    font-size: var(--fs-md);
+    color: var(--color-text);
+    max-inline-size: 42ch;
+    opacity: 0.9;
   }
 
   &__actions {
+    margin-top: var(--s-8);
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
+    height: 50%;
 
-    @media (min-width: 768px) {
-      justify-content: flex-end;
+    /* botão arredondado estilo “pílula” como no mock */
+    .btn {
+      border-radius: 999px;
+      padding-inline: var(--s-16);
+      font-weight: 700;
+      /* garante cor do variant=secondary (#654C3B em vars) com bom contraste */
     }
-  }
-
-  &__grid {
-    max-width: var(--layout-max-width);
-    margin-inline: auto;
-    padding-inline: var(--s-12);
-    margin-top: var(--s-12);
-
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--s-12);
-
-    @media (min-width: 576px) {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    @media (min-width: 992px) {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-  }
-
-  &__card {
-    /* espaço interno do footer/excerpt já vem do Card; apenas ajustes finos aqui, se necessário */
-  }
-
-  &__excerpt {
-    margin: 0;
-    font-size: var(--fs-sm);
-    color: var(--color-muted);
   }
 }

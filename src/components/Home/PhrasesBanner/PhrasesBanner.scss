@@ -1,0 +1,17 @@
+// src/components/Home/PhrasesBanner/PhrasesBanner.scss
+
+.phrases-banner__gallery {
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--s-12);
+  margin-top: var(--s-16);
+  background: var(--color-bg);
+  padding-block: var(--s-16);
+  height: 300px;
+}
+.phrases-banner__gallery img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}

@@ -3,7 +3,6 @@
 
 import React from 'react';
 import './IntroBanner.scss';
-import Button from '../../common/Button/Button';
 
 export type IntroAlign = 'left' | 'center';
 

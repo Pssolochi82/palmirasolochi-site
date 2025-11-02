@@ -1,6 +1,5 @@
 // src/components/layouts/Footer/Footer.scss
 .footer {
-  margin-top: var(--s-24);
   background: var(--color-primary);
 
   &__top {
@@ -66,6 +65,15 @@
     display: inline-flex;
     align-items: center;
     gap: var(--s-6);
+
+    &--legal {
+      color: var(--color-surface);
+      text-decoration: none;
+      &:hover {
+        font-weight: 600;
+        color: #198dd3;
+      }
+    }
 
     &:hover {
       text-decoration: underline;

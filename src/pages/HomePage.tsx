@@ -6,11 +6,13 @@ import '../pages/styles/Pages.scss';
 import Hero from '../components/Home/Hero/Hero';
 import IntroBanner from '../components/Home/IntroBanner/IntroBanner';
 import DomainSkills from '../components/Home/DomainSkills/DomainSkills';
-import DomainTech from '../components/Home/DomainTech/DomainTech';
+import PhrasesBanner from '../components/Home/PhrasesBanner/PhrasesBanner';
+import ProjectTeaser from '../components/Home/ProjectTeaser/ProjectTeaser';
 
 // Import image.
 import hero1 from '../../src/assets/hero-1.webp';
 import skillsImg from '../../src/assets/DomainTech.webp';
+import teaserImg from '../../src/assets/teaserImg.webp';
 
 // -----------------------------------------------------------------
 
@@ -29,41 +31,15 @@ const HomePage: React.FC = () => {
         align='center'
       />
       <DomainSkills imageSrc={skillsImg} imageAlt='Profissional a trabalhar com portátil' />
-      <DomainTech
-        items={[
-          {
-            id: 'frontend',
-            title: 'Frontend UI',
-            description: 'React, Vite e TypeScript com SCSS BEM e acessibilidade.',
-            skills: [
-              { id: 'ts', label: 'TypeScript' },
-              { id: 'react', label: 'React' },
-              { id: 'scss', label: 'SCSS (BEM)' },
-              { id: 'vite', label: 'Vite' },
-            ],
-          },
-          {
-            id: 'designsys',
-            title: 'Design Systems',
-            description: 'Tokens, semântica, componentes e documentação viva.',
-            skills: [
-              { id: 'tokens', label: 'Design Tokens' },
-              { id: 'a11y', label: 'A11y' },
-              { id: 'bem', label: 'BEM' },
-              { id: 'figma', label: 'Figma-ready' },
-            ],
-          },
-          {
-            id: 'perf',
-            title: 'Performance & QA',
-            description: 'Lighthouse, web vitals e code review pragmático.',
-            skills: [
-              { id: 'lighthouse', label: 'Lighthouse' },
-              { id: 'webvitals', label: 'Web Vitals' },
-              { id: 'testing', label: 'Testing' },
-            ],
-          },
-        ]}
+      <PhrasesBanner />
+      <ProjectTeaser
+        imageSrc={teaserImg}
+        imageAlt='Pessoa a trabalhar ao portátil'
+        title='Os meus projectos'
+        text='Trabalhos académicos, projetos pessoais e exercícios técnicos que demonstram competências em backend, bases de dados, automação de testes e desenvolvimento web.
+'
+        ctaLabel='Visite os meus projectos'
+        ctaHref='/projects'
       />
     </section>
   );

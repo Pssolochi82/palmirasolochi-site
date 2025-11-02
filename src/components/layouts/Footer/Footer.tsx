@@ -65,15 +65,14 @@ const Footer: React.FC = () => {
 
       <div className='footer__bottom'>
         <small className='footer__legal'>
-          © {year} Todos os direitos reservados. Feito por{' '}
+          © {year} Todos os direitos reservados. Desenvolvido por{' '}
           <a
-            className='footer__link'
-            href='https://thehumantechblog.com'
+            className='footer__link--legal'
+            href='https://thehumantechblog.com/about'
             target='_blank'
             rel='noopener noreferrer'>
-            Deolindo Baptista
+            The Human Tech Digitals.
           </a>
-          .
         </small>
       </div>
     </footer>

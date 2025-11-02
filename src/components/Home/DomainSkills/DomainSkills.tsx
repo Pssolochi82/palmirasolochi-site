@@ -23,7 +23,7 @@ const DomainSkills: React.FC<DomainSkillsProps> = ({ imageSrc, imageAlt }) => {
           <p className='domainSkills__list'>COBOL · JCL · TSO/ISPF · Zowe · SQL · DB2</p>
 
           <h3 className='domainSkills__title domainSkills__title--mid'>QA &amp; Automatização</h3>
-          <p className='domainSkills__list'>
+          <p className='domainSkills__list--mid'>
             Selenium · Cypress · Cucumber · Gherkin · BDD · Jira · Xray · OWASP ZAP · Postman
           </p>
 
