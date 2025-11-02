@@ -66,12 +66,15 @@
     align-items: center;
     gap: var(--s-6);
 
-    &--legal {
+    &--name {
       color: var(--color-surface);
       text-decoration: none;
       &:hover {
-        font-weight: 600;
-        color: #198dd3;
+        text-decoration: none;
+        background: #198dd3;
+        color: #fff;
+        border: 1px solid #198dd3;
+        border-radius: 4px;
       }
     }
 
@@ -90,7 +93,15 @@
   }
 
   &__legal {
+    display: inline-flex;
+    align-items: center;
     color: var(--color-surface);
     font-size: var(--fs-sm);
+  }
+  &__logo--legal {
+    width: 20px;
+    height: auto;
+    vertical-align: middle;
+    display: inline;
   }
 }
