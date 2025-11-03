@@ -1,0 +1,70 @@
+.introProj {
+  background: var(--color-bg);
+  min-height: 260px;
+  padding-block: var(--s-16);
+  display: flex;
+  align-items: center;
+
+  &__inner {
+    max-width: var(--layout-max-width);
+    margin-inline: auto;
+    padding-inline: var(--s-12);
+    display: flex;
+    justify-content: center;
+  }
+
+  &__text {
+    max-width: var(--s-500);
+    /* font-family: var(--font-Handwritten); */
+    font-size: clamp(1rem, 1rem + 1vw, 1.25rem);
+    color: var(--color-text);
+    line-height: 1.6;
+    white-space: pre-line;
+
+    p {
+      margin: 0 0 var(--s-8);
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+      margin: var(--s-8) 0;
+
+      li {
+        margin-bottom: var(--s-4);
+        position: relative;
+        padding-left: var(--s-8);
+
+        &::before {
+          content: '•';
+          margin-right: 1rem;
+          left: 0;
+          color: var(--color-primary);
+        }
+      }
+    }
+
+    em,
+    q {
+      display: block;
+      font-style: italic;
+      margin-top: var(--s-8);
+      font-size: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
+    }
+  }
+
+  /* alinhamentos */
+  &--left {
+    text-align: left;
+    justify-content: flex-start;
+  }
+
+  &--center {
+    text-align: center;
+    justify-content: center;
+  }
+
+  &--compact {
+    padding-block: var(--s-12);
+  }
+}

@@ -2,7 +2,7 @@
 .intro {
   /* Base visual da faixa */
   background: var(--color-bg);
-
+  min-height: 260px;
   padding-block: var(--s-16);
 
   &__inner {
