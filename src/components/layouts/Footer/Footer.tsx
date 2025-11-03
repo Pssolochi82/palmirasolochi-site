@@ -45,12 +45,18 @@ const Footer: React.FC = () => {
             <h3 className='footer__heading'>Redes</h3>
             <ul className='footer__list'>
               <li>
-                <a className='footer__link' href='#' aria-label='LinkedIn'>
+                <a
+                  className='footer__link'
+                  href='https://www.linkedin.com/in/palmira-solochi-79a1a3317/'
+                  aria-label='LinkedIn'>
                   LinkedIn
                 </a>
               </li>
               <li>
-                <a className='footer__link' href='#' aria-label='GitHub'>
+                <a
+                  className='footer__link'
+                  href='https://github.com/Pssolochi82'
+                  aria-label='GitHub'>
                   GitHub
                 </a>
               </li>
