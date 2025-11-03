@@ -1,0 +1,185 @@
+// src/components/Projects/HeroProjects/HeroProjects.scss
+.projects-hero {
+  position: relative;
+  padding-block: var(--s-16);
+  padding-inline: var(--s-12);
+  margin: 0 var(--s-8);
+  padding: var(--s-16) var(--s-12);
+  @media (min-width: 768px) {
+    margin: 0 var(--s-32);
+  }
+
+  /* ===== Base (mobile-first): STACKED ===== */
+  &__stage {
+    position: relative;
+    max-width: var(--layout-max-width);
+    min-block-size: 0;
+  }
+
+  &__media {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    aspect-ratio: 16 / 9;
+  }
+
+  &__img {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* CARD */
+  &__card {
+    background: var(--color-bg-light);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    padding: var(--s-16);
+    display: grid;
+    gap: var(--s-8);
+    margin-top: var(--s-12);
+  }
+
+  &__title {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: var(--fs-xxl);
+    line-height: 1.15;
+    letter-spacing: 0.01em;
+    color: var(--color-text);
+  }
+
+  &__subtitle {
+    margin: 0;
+    font-size: var(--fs-lg);
+    color: var(--color-primary);
+  }
+
+  &__text {
+    margin: 0;
+    font-size: var(--fs-md);
+    color: var(--color-text);
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: var(--s-8);
+    margin-top: var(--s-8);
+  }
+
+  /* ===== Desktop: ABSOLUTE overlay ===== */
+  @media (min-width: 768px) {
+    &__stage {
+      min-block-size: clamp(22rem, 40vw, 46rem);
+    }
+
+    /* padrão: imagem à ESQUERDA, card à DIREITA */
+    &__media {
+      position: absolute;
+      top: 0;
+      left: 0;
+      inline-size: 60%;
+      aspect-ratio: 16 / 9;
+    }
+
+    &__card {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      inline-size: 38%;
+      margin-top: 0;
+    }
+
+    /* inverso: imagem à DIREITA, card à ESQUERDA */
+    &.hero--inverse {
+      .hero__media {
+        left: auto;
+        right: 0;
+      }
+      .hero__card {
+        right: auto;
+        left: 0;
+      }
+    }
+  }
+
+  /* ===== ≥1024px: mantemos o teu layout, com *clamp* para não sair da viewport ===== */
+  @media (min-width: 1024px) {
+    /* padrão (não inverso) */
+    &__media {
+      inline-size: 90%;
+      /* continua ancorada à esquerda (left:0 herdado do bloco anterior) */
+    }
+
+    &__card {
+      /* inline-size: 50%; */
+      /* Preferência: 60rem; Não menor que a margem interna; Não maior que o ponto em que o card sairia da direita */
+      left: 55%;
+      right: auto;
+    }
+
+    /* inverso (AboutPage) */
+    &.hero--inverse {
+      .hero__media {
+        inline-size: 90%;
+        /* Preferência: 40rem; limitado às margens para não sair pela esquerda nem tocar a direita */
+        left: clamp(
+          var(--s-12),
+          40rem,
+          calc(100% - var(--s-12) - 90%) /* 100% - padding - largura da imagem */
+        );
+        right: auto;
+      }
+
+      .hero__card {
+        inline-size: 50%;
+        /* Preferência: 27rem a partir da direita; clamp garante que não encosta/ultrapassa */
+        right: clamp(var(--s-12), 27rem, calc(100% - var(--s-12) - 50%));
+        left: auto;
+      }
+    }
+  }
+  /* ===== ≥1200px: mantemos o teu layout, com *clamp* para não sair da viewport ===== */
+  @media (min-width: 1200px) {
+    /* padrão (não inverso) */
+    &__media {
+      inline-size: 90%;
+      /* continua ancorada à esquerda (left:0 herdado do bloco anterior) */
+    }
+
+    &__card {
+      /* inline-size: 50%; */
+      /* Preferência: 60rem; Não menor que a margem interna; Não maior que o ponto em que o card sairia da direita */
+      left: 55%;
+      right: auto;
+    }
+
+    /* inverso (AboutPage) */
+    &.hero--inverse {
+      .hero__media {
+        inline-size: 90%;
+        /* Preferência: 40rem; limitado às margens para não sair pela esquerda nem tocar a direita */
+        left: clamp(
+          var(--s-12),
+          40rem,
+          calc(100% - var(--s-12) - 90%) /* 100% - padding - largura da imagem */
+        );
+        right: auto;
+      }
+
+      .hero__card {
+        inline-size: 50%;
+        /* Preferência: 27rem a partir da direita; clamp garante que não encosta/ultrapassa */
+        right: clamp(var(--s-12), 27rem, calc(100% - var(--s-12) - 50%));
+        left: auto;
+      }
+    }
+  }
+}
