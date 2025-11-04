@@ -1,0 +1,57 @@
+// src/components/Projects/Pagination/Pagination.scss
+.pag {
+  display: grid;
+  place-items: center;
+  padding-block: var(--s-12);
+
+  &__list {
+    list-style: none;
+    display: flex;
+    gap: var(--s-4);
+    margin: 0;
+    padding: 0;
+    align-items: center;
+  }
+
+  &__item {
+    display: inline-flex;
+  }
+
+  &__btn {
+    appearance: none;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg);
+    color: var(--color-text);
+    padding: 0.5rem 0.8rem;
+    border-radius: var(--radius-md);
+    font: inherit;
+    line-height: 1;
+    box-shadow: var(--shadow-sm);
+    min-inline-size: 2.25rem;
+    text-align: center;
+
+    &:hover:not(:disabled),
+    &:focus-visible {
+      border-color: var(--color-primary);
+      box-shadow: var(--shadow-md);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &--active {
+      background: var(--color-primary);
+      color: #fff;
+      border-color: var(--color-primary);
+    }
+  }
+
+  &__dots {
+    display: inline-block;
+    padding: 0.5rem 0.4rem;
+    color: var(--color-muted);
+    user-select: none;
+  }
+}
