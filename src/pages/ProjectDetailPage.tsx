@@ -2,30 +2,14 @@
 'use strict';
 
 import React from 'react';
-import './styles/ProjectDetailPage.scss';
+import './ProjectDetailPage.scss';
 import Button from '../components/common/Button/Button';
 import { Project } from '../types/project';
+import { getProjectBySlug } from '../services/projects';
+import { useParams } from 'react-router-dom';
 
-// Imagens mock (substitui pelas reais)
+// Fallback de imagem local (mantém 16:9)
 import heroDetail from '../assets/mock1.webp';
-
-const MOCK_PROJECT: Project = {
-  id: 'p-001',
-  slug: 'sistema-gestao-testes',
-  title: 'Sistema de Gestão de Testes',
-  subtitle: 'QA Automation • Selenium • Cucumber (BDD)',
-  excerpt:
-    'Framework de automação de testes com foco em legibilidade (Gherkin), reporting e integração CI.',
-  description:
-    'Este projeto demonstra a implementação de testes funcionais com Selenium e Cucumber, adotando BDD para alinhar negócio e QA. Inclui estrutura modular, Page Objects, reutilização de steps e relatórios agregados.',
-  tags: ['QA', 'Selenium', 'Cucumber', 'TypeScript'],
-  category: 'qa',
-  status: 'completed',
-  media: { imageSrc: heroDetail, imageAlt: 'Cenário de testes automatizados' },
-  links: { live: '#', repo: 'https://github.com/', details: '/projects/sistema-gestao-testes' },
-  createdAt: '2024-09-10T12:00:00.000Z',
-  updatedAt: '2025-01-15T09:15:00.000Z',
-};
 
 const formatDate = (iso?: string) => {
   if (!iso) return '';
@@ -33,7 +17,42 @@ const formatDate = (iso?: string) => {
   return d.toLocaleDateString('pt-PT', { year: 'numeric', month: 'short', day: '2-digit' });
 };
 
-const ProjectDetailPage: React.FC<{ project?: Project }> = ({ project = MOCK_PROJECT }) => {
+const ProjectDetailPage: React.FC = () => {
+  const { slug } = useParams<{ slug: string }>();
+  const [project, setProject] = React.useState<Project | null>(null);
+  const [notFound, setNotFound] = React.useState(false);
+
+  React.useEffect(() => {
+    // mock sync; no futuro, pode ser async (fetch)
+    const found = slug ? getProjectBySlug(slug) : undefined;
+    if (found) {
+      setProject(found);
+      setNotFound(false);
+    } else {
+      setProject(null);
+      setNotFound(true);
+    }
+  }, [slug]);
+
+  if (notFound) {
+    return (
+      <main className='projDetail' role='status' aria-live='polite'>
+        <header className='projDetail__head'>
+          <h1 className='projDetail__title'>Projeto não encontrado</h1>
+          <p className='projDetail__excerpt'>Verifica o endereço ou volta à página de projetos.</p>
+        </header>
+      </main>
+    );
+  }
+
+  if (!project) {
+    return (
+      <main className='projDetail' role='status' aria-live='polite'>
+        <p>Carregando…</p>
+      </main>
+    );
+  }
+
   const {
     title,
     subtitle,
@@ -53,7 +72,7 @@ const ProjectDetailPage: React.FC<{ project?: Project }> = ({ project = MOCK_PRO
         <figure className='projDetail__media'>
           <img
             className='projDetail__img'
-            src={media?.imageSrc}
+            src={media?.imageSrc || heroDetail}
             alt={media?.imageAlt || title}
             loading='eager'
           />
@@ -108,22 +127,20 @@ const ProjectDetailPage: React.FC<{ project?: Project }> = ({ project = MOCK_PRO
 
       {/* CONTENT */}
       <article className='projDetail__content' aria-label='Conteúdo do projeto'>
-        <h2 className='projDetail__h2'>Descrição</h2>
-        <p className='projDetail__p'>{description}</p>
-
-        <h3 className='projDetail__h3'>Principais objetivos</h3>
-        <ul className='projDetail__list'>
-          <li>Estratégia BDD com Gherkin para cenários legíveis por negócio.</li>
-          <li>Arquitetura Page Object para reduzir duplicações.</li>
-          <li>Execução paralela e reports agregados no CI.</li>
-        </ul>
-
-        <h3 className='projDetail__h3'>Exemplo de Step (pseudo)</h3>
-        <pre className='projDetail__code' aria-label='Exemplo de código'>
-          {`Given("user is on the login page")
-When("user submits valid credentials")
-Then("user should see the dashboard")`}
-        </pre>
+        {description ? (
+          <>
+            <h2 className='projDetail__h2'>Descrição</h2>
+            <p className='projDetail__p'>{description}</p>
+          </>
+        ) : (
+          <>
+            <h2 className='projDetail__h2'>Descrição</h2>
+            <p className='projDetail__p'>
+              Este projeto ainda não possui descrição detalhada. Em breve serão adicionadas notas
+              técnicas, aprendizagens e próximos passos.
+            </p>
+          </>
+        )}
       </article>
     </main>
   );
