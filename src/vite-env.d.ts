@@ -28,9 +28,8 @@ declare module '*.webp' {
 }
 
 interface ImportMetaEnv {
-  readonly VITE_EMAILJS_PUBLIC_KEY: string;
-  readonly VITE_EMAILJS_SERVICE_ID: string;
-  readonly VITE_EMAILJS_TEMPLATE_ID: string;
+  readonly VITE_API_BASE_URL: string;
+
   // Podes adicionar outras variáveis VITE_... aqui
 }
 

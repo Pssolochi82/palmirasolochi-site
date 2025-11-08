@@ -1,11 +1,13 @@
 // src/components/Contact/ContactForm/ContactForm.tsx
 'use strict';
 
+// src/components/Contact/ContactForm/ContactForm.tsx
+
 import React, { useState } from 'react';
 import './ContactForm.scss';
 import Button from '../../common/Button/Button';
 import type { ContactFormValues } from '../../../types/contact';
-import { sendContactEmail } from '../../../services/email/emailjsClient';
+import { sendContact } from '../../../services/contact';
 
 interface Props {
   className?: string;
@@ -36,7 +38,6 @@ const ContactForm: React.FC<Props> = ({ className = '' }) => {
     e.preventDefault();
     if (sending) return;
 
-    // Required básicos
     if (!values.name || !values.email || !values.message) {
       setError('Por favor preencha Nome, Email e Mensagem.');
       return;
@@ -45,10 +46,14 @@ const ContactForm: React.FC<Props> = ({ className = '' }) => {
     try {
       setError('');
       setSending(true);
-      await sendContactEmail(values);
+      await sendContact({
+        name: values.name,
+        email: values.email,
+        subject: values.subject,
+        message: values.message,
+      });
       setSent(true);
       setValues(initialValues);
-      // Limpa feedback após alguns segundos (UX)
       window.setTimeout(() => setSent(false), 4000);
     } catch (err) {
       console.error(err);
@@ -60,7 +65,7 @@ const ContactForm: React.FC<Props> = ({ className = '' }) => {
 
   return (
     <form className={rootCls} onSubmit={handleSubmit} noValidate aria-live='polite'>
-      {/* Honeypot anti-spam: escondido de humanos; bots costumam preencher */}
+      {/* Honeypot anti-spam */}
       <div className='contactForm__honeypot' aria-hidden='true'>
         <label htmlFor='company'>Empresa</label>
         <input
