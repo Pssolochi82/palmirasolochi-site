@@ -74,7 +74,7 @@
   }
 
   /* ===== Desktop: ABSOLUTE overlay ===== */
-  @media (min-width: 768px) {
+  @media (min-width: 980px) {
     &__stage {
       min-block-size: clamp(22rem, 40vw, 46rem);
     }
@@ -114,7 +114,7 @@
   @media (min-width: 1024px) {
     /* padrão (não inverso) */
     &__media {
-      inline-size: 90%;
+      inline-size: 70%;
       /* continua ancorada à esquerda (left:0 herdado do bloco anterior) */
     }
 
@@ -128,7 +128,7 @@
     /* inverso (AboutPage) */
     &.hero--inverse {
       .hero__media {
-        inline-size: 90%;
+        inline-size: 70%;
         /* Preferência: 40rem; limitado às margens para não sair pela esquerda nem tocar a direita */
         left: clamp(
           var(--s-12),
@@ -150,7 +150,7 @@
   @media (min-width: 1200px) {
     /* padrão (não inverso) */
     &__media {
-      inline-size: 90%;
+      inline-size: 70%;
       /* continua ancorada à esquerda (left:0 herdado do bloco anterior) */
     }
 
