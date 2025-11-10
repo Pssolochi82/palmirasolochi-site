@@ -1,0 +1,30 @@
+/* \src\components\Contact\ContactMap\ContactMap.scss */
+
+.contact-map {
+  width: 100%;
+  max-width: 1024px;
+  margin: 0 auto 5rem;
+  padding: var(--padding-xl) 3rem 0;
+
+  iframe {
+    width: 100%;
+    max-height: 350px;
+    border-radius: 24px;
+    border: 1px solid #111;
+  }
+
+  &__link {
+    margin-top: 0.5rem;
+    a {
+      color: var(--primary);
+      font-size: var(--font-size-sm);
+      text-decoration: underline;
+      &:hover {
+        color: var(--primary-hover);
+      }
+    }
+  }
+  @media (max-width: 1024px) {
+    padding: 2rem;
+  }
+}

@@ -7,6 +7,7 @@ import './styles/ContactPage.scss';
 import HeroContact from '../components/Contact/HeroContact/HeroContact';
 import QuoteContact from '../components/Contact/QuoteContact/QuoteContact';
 import ContactFormSection from '../components/Contact/ContactFormSection/ContactFormSection';
+import { ContactMap } from '../components/Contact/ContactMap/ContactMap';
 
 // Assets (usa uma imagem existente do teu /src/assets)
 import hero4 from '../assets/hero-4.webp';
@@ -38,6 +39,7 @@ const ContactPage: React.FC = () => {
         </QuoteContact>
 
         <ContactFormSection />
+        <ContactMap />
       </div>
     </main>
   );

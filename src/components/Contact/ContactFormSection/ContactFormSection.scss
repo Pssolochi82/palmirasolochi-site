@@ -1,4 +1,5 @@
-// src/components/Contact/ContactFormSection/ContactFormSection.scss
+/* src/components/Contact/ContactFormSection/ContactFormSection.scss */
+
 .contactSection {
   margin: 0 var(--s-8);
   padding: var(--s-16) var(--s-12);
@@ -14,20 +15,66 @@
     align-items: center;
   }
 
-  &__note {
-    padding: var(--s-16, 16px);
-    color: var(--color-text, #2f2a28);
-    line-height: 1.6;
-    box-shadow: var(--shadow-md, 0 8px 24px rgba(0, 0, 0, 0.08));
-    text-align: center;
-  }
-
   @media (min-width: 960px) {
     padding: var(--s-40, 40px) 0;
 
     &__grid {
-      grid-template-columns: 3fr 2fr; // form maior que a nota
+      grid-template-columns: 1fr 1fr;
       gap: var(--s-24, 24px);
+    }
+  }
+
+  /* aside */
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-8);
+
+    &__subtitle {
+      text-transform: uppercase;
+      font-size: var(--fs-sm);
+      letter-spacing: 2.5px;
+      margin-bottom: var(--s-2);
+      font-weight: 600;
+    }
+
+    &__title {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 700;
+      margin-bottom: var(--s-2);
+    }
+
+    &__descs {
+      font-size: var(--fs-md, 1rem);
+      line-height: 1.6;
+    }
+
+    &__grids {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s-16) var(--s-24);
+      &__item {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--s8);
+        &__icon {
+          font-size: 2rem;
+          margin-right: var(--s-4);
+          margin-top: 0.1em;
+        }
+
+        &__label {
+          font-weight: 600;
+          margin-bottom: 0.1em;
+          font-size: var(--fs-md);
+        }
+
+        &__value {
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: var(--font-size-base);
+          word-break: break-all;
+        }
+      }
     }
   }
 }
