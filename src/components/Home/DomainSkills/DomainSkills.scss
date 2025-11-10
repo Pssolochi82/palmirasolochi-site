@@ -69,12 +69,15 @@
   /* Imagem à direita */
   /* Imagem à direita */
   &__media {
-    aspect-ratio: 4 / 4;
+    aspect-ratio: 16 / 9;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     overflow: hidden;
     box-shadow: var(--shadow-sm);
+    @media (min-width: 980px) {
+      aspect-ratio: 4 / 4;
+    }
     @media (min-width: 1200px) {
       aspect-ratio: 16 / 9;
     }
