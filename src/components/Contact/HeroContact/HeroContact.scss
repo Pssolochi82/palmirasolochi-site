@@ -1,34 +1,35 @@
 // src/components/Contact/HeroContact/HeroContact.scss
 .heroContact {
-  margin: 0 var(--s-8);
-  padding: var(--s-16) var(--s-12);
+  margin: 0 var(--s-4);
+  padding: var(--s-8) var(--s-6);
 
   @media (min-width: 768px) {
-    margin: 0 var(--s-32);
+    margin: 0 var(--s-12);
   }
 
   &__grid {
     display: grid;
-    gap: var(--s-16, 16px);
+    gap: var(--s-8);
     grid-template-columns: 1fr;
     align-items: center;
+    justify-items: center;
   }
 
   &__figure {
+    max-width: 400px;
     margin: 0;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     overflow: hidden;
     box-shadow: var(--shadow-sm);
-    /* aspect-ratio: 4 / 3; */
   }
 
   &__image {
     display: block;
     width: 100%;
     height: auto;
-    border-radius: var(--radius-md, 8px);
-    box-shadow: var(--shadow-md, 0 8px 24px rgba(0, 0, 0, 0.08));
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
     object-fit: cover;
   }
 
@@ -41,44 +42,44 @@
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-md);
-    padding: var(--s-16);
-    gap: var(--s-8);
+    padding: var(--s-8);
+    gap: var(--s-4);
   }
 
   &__title {
     font-family: var(--font-title, 'Playfair Display', serif);
-    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    font-size: clamp(var(--fs-md), 2vw, var(--fs-lg));
     color: var(--color-text-dark, #2f2a28);
-    margin: 0 0 var(--s-8, 8px);
+    margin: 0 0 var(--s-4);
   }
 
   &__text {
-    margin: 0 0 var(--s-12, 12px);
+    margin: 0 0 var(--s-6);
     color: var(--color-text, #2f2a28);
     line-height: 1.5;
     text-align: center;
+    font-size: var(--fs-sm);
   }
 
   &__btn {
-    // Button component already styled; keep only layout tweaks if needed
     display: inline-flex;
   }
 
   @media (min-width: 900px) {
-    padding: var(--s-40, 40px) 0;
+    padding: var(--s-16) var(--s-64);
 
     &__grid {
       grid-template-columns: 1fr 1fr;
-      gap: var(--s-24, 24px);
+      gap: var(--s-12);
     }
 
     &__figure {
-      order: 1; // imagem à esquerda
+      order: 1;
     }
 
     &__card {
       order: 2;
-      max-width: 520px;
+      max-width: 28.125rem;
       justify-self: center;
     }
   }
