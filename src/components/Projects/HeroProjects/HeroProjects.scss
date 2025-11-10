@@ -74,7 +74,7 @@
   }
 
   /* ===== Desktop: ABSOLUTE overlay ===== */
-  @media (min-width: 768px) {
+  @media (min-width: 980px) {
     &__stage {
       min-block-size: clamp(22rem, 40vw, 46rem);
     }
@@ -99,11 +99,11 @@
 
     /* inverso: imagem à DIREITA, card à ESQUERDA */
     &.hero--inverse {
-      .hero__media {
+      .projects-hero__media {
         left: auto;
         right: 0;
       }
-      .hero__card {
+      .projects-hero__card {
         right: auto;
         left: 0;
       }
@@ -114,7 +114,7 @@
   @media (min-width: 1024px) {
     /* padrão (não inverso) */
     &__media {
-      inline-size: 90%;
+      inline-size: 70%;
       /* continua ancorada à esquerda (left:0 herdado do bloco anterior) */
     }
 
@@ -127,8 +127,8 @@
 
     /* inverso (AboutPage) */
     &.hero--inverse {
-      .hero__media {
-        inline-size: 90%;
+      .projects-hero__media {
+        inline-size: 70%;
         /* Preferência: 40rem; limitado às margens para não sair pela esquerda nem tocar a direita */
         left: clamp(
           var(--s-12),
@@ -138,7 +138,7 @@
         right: auto;
       }
 
-      .hero__card {
+      .projects-hero__card {
         inline-size: 50%;
         /* Preferência: 27rem a partir da direita; clamp garante que não encosta/ultrapassa */
         right: clamp(var(--s-12), 27rem, calc(100% - var(--s-12) - 50%));
@@ -150,7 +150,7 @@
   @media (min-width: 1200px) {
     /* padrão (não inverso) */
     &__media {
-      inline-size: 90%;
+      inline-size: 70%;
       /* continua ancorada à esquerda (left:0 herdado do bloco anterior) */
     }
 
@@ -163,7 +163,7 @@
 
     /* inverso (AboutPage) */
     &.hero--inverse {
-      .hero__media {
+      .projects-hero__media {
         inline-size: 90%;
         /* Preferência: 40rem; limitado às margens para não sair pela esquerda nem tocar a direita */
         left: clamp(
@@ -174,7 +174,7 @@
         right: auto;
       }
 
-      .hero__card {
+      .projects-hero__card {
         inline-size: 50%;
         /* Preferência: 27rem a partir da direita; clamp garante que não encosta/ultrapassa */
         right: clamp(var(--s-12), 27rem, calc(100% - var(--s-12) - 50%));
