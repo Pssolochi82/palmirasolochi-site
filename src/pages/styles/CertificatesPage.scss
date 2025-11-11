@@ -1,0 +1,40 @@
+// src/pages/CertificatesPage.scss
+
+.certificatesPage {
+  width: 100%;
+  max-width: var(--layout-max-width, 1200px);
+  margin: 0 auto;
+  padding: var(--space-xl, 2rem) var(--space-md, 1rem);
+
+  &__header {
+    margin-bottom: var(--space-lg, 1.25rem);
+  }
+
+  &__title {
+    margin: 0 0 var(--space-xs, 0.5rem);
+    font-size: var(--font-size-2xl, 1.75rem);
+    line-height: 1.25;
+    color: var(--color-heading, #0f172a);
+    font-weight: 800;
+  }
+
+  &__subtitle {
+    margin: 0;
+    font-size: var(--font-size-sm, 0.95rem);
+    color: var(--color-text-muted, #475569);
+  }
+
+  &__viewer {
+    // O PdfViewer gere altura e bordas
+  }
+}
+
+@media (max-width: 768px) {
+  .certificatesPage {
+    padding: var(--space-lg, 1.25rem) var(--space-sm, 0.75rem);
+
+    &__title {
+      font-size: var(--font-size-xl, 1.5rem);
+    }
+  }
+}
