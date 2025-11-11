@@ -4,12 +4,18 @@
 import React from 'react';
 import './styles/ProjectDetailPage.scss';
 import Button from '../components/common/Button/Button';
-import { Project } from '../types/project';
+import type { Project } from '../types/project';
 import { getProjectBySlug } from '../services/projects';
 import { useParams } from 'react-router-dom';
 
-// Fallback local 16:9 atualizado para a nova pasta
-import heroDetail from '../assets/projects/mock1.webp';
+/** Respeita o BASE_URL do Vite quando o site está num subpath */
+function withBase(path: string): string {
+  const base = import.meta.env.BASE_URL || '/';
+  return `${base.replace(/\/+$/, '')}/${path.replace(/^\/+/, '')}`;
+}
+
+/** Fallback 16:9 servido pela pasta public, sem import */
+const FALLBACK_HERO = withBase('projects/mock1.webp');
 
 const formatDate = (iso?: string) => {
   if (!iso) return '';
@@ -21,33 +27,53 @@ const ProjectDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const [project, setProject] = React.useState<Project | null>(null);
   const [notFound, setNotFound] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
-    const found = slug ? getProjectBySlug(slug) : undefined;
-    if (found) {
-      setProject(found);
+    let alive = true;
+    async function load(): Promise<void> {
+      setLoading(true);
       setNotFound(false);
-    } else {
-      setProject(null);
-      setNotFound(true);
+      try {
+        if (!slug) {
+          setNotFound(true);
+          setProject(null);
+          return;
+        }
+        const found = await getProjectBySlug(slug);
+        if (!alive) return;
+        if (found) {
+          setProject(found);
+          setNotFound(false);
+        } else {
+          setProject(null);
+          setNotFound(true);
+        }
+      } finally {
+        if (alive) setLoading(false);
+      }
     }
+    void load();
+    return () => {
+      alive = false;
+    };
   }, [slug]);
 
-  if (notFound) {
+  if (loading) {
+    return (
+      <main className='projDetail' role='status' aria-live='polite'>
+        <p>Carregando…</p>
+      </main>
+    );
+  }
+
+  if (notFound || !project) {
     return (
       <main className='projDetail' role='status' aria-live='polite'>
         <header className='projDetail__head'>
           <h1 className='projDetail__title'>Projeto não encontrado</h1>
           <p className='projDetail__excerpt'>Verifica o endereço ou volta à página de projetos.</p>
         </header>
-      </main>
-    );
-  }
-
-  if (!project) {
-    return (
-      <main className='projDetail' role='status' aria-live='polite'>
-        <p>Carregando…</p>
       </main>
     );
   }
@@ -71,7 +97,7 @@ const ProjectDetailPage: React.FC = () => {
         <figure className='projDetail__media'>
           <img
             className='projDetail__img'
-            src={media?.imageSrc || heroDetail}
+            src={media?.imageSrc || FALLBACK_HERO}
             alt={media?.imageAlt || title}
             loading='eager'
           />
@@ -126,20 +152,11 @@ const ProjectDetailPage: React.FC = () => {
 
       {/* CONTENT */}
       <article className='projDetail__content' aria-label='Conteúdo do projeto'>
-        {description ? (
-          <>
-            <h2 className='projDetail__h2'>Descrição</h2>
-            <p className='projDetail__p'>{description}</p>
-          </>
-        ) : (
-          <>
-            <h2 className='projDetail__h2'>Descrição</h2>
-            <p className='projDetail__p'>
-              Este projeto ainda não possui descrição detalhada. Em breve serão adicionadas notas
-              técnicas, aprendizagens e próximos passos.
-            </p>
-          </>
-        )}
+        <h2 className='projDetail__h2'>Descrição</h2>
+        <p className='projDetail__p'>
+          {description ||
+            'Este projeto ainda não possui descrição detalhada. Em breve serão adicionadas notas técnicas, aprendizagens e próximos passos.'}
+        </p>
       </article>
     </main>
   );

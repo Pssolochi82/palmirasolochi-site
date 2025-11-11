@@ -32,62 +32,91 @@ const ProjectsPage: React.FC = () => {
   <li>Desenvolvimento Web</li>
 </ul>
 
-<p>“Cada linha de código é uma oportunidade para aprender, melhorar e criar algo que faça a diferença.”</p>
+<p>"Cada linha de código é uma oportunidade para aprender, melhorar e criar algo que faça a diferença."</p>
 `;
 
-  // ======= STATE =======
+  // estado
   const [q, setQ] = React.useState('');
   const [sort, setSort] = React.useState<SortOption>('newest');
   const [activeTags, setActiveTags] = React.useState<string[]>([]);
   const [page, setPage] = React.useState(1);
   const itemsPerPage = 3;
 
+  const [projects, setProjects] = React.useState<ProjectGridItem[]>([]);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState('');
+
+  // tags fixas por agora
   const tags = ['Python', 'PHP', 'C++', 'C#', 'QA', 'COBOL', 'Java'];
 
   const toggleTag = (tag: string) => {
     setActiveTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]));
   };
 
-  // ======= SOURCE =======
-  const allProjects: ProjectGridItem[] = React.useMemo(() => {
-    const src = listProjects();
-    console.debug('[ProjectsPage] listProjects length:', src.length, src);
-    return src.map((p) => ({
-      id: p.id,
-      title: p.title,
-      subtitle: p.subtitle,
-      excerpt: p.excerpt,
-      imageSrc: p.media?.imageSrc,
-      imageAlt: p.media?.imageAlt || p.title,
-      tags: p.tags,
-      links: p.links,
-    }));
+  // carregar projetos de forma assíncrona
+  React.useEffect(() => {
+    let alive = true;
+    async function load(): Promise<void> {
+      setLoading(true);
+      setError('');
+      try {
+        const src = await listProjects();
+        if (!alive) return;
+        const items: ProjectGridItem[] = src.map((p) => ({
+          id: p.id,
+          title: p.title,
+          subtitle: p.subtitle,
+          excerpt: p.excerpt,
+          imageSrc: p.media?.imageSrc,
+          imageAlt: p.media?.imageAlt || p.title,
+          tags: p.tags,
+          links: p.links,
+        }));
+        setProjects(items);
+      } catch (e) {
+        if (!alive) return;
+        setError('Falha ao carregar projetos.');
+      } finally {
+        if (alive) setLoading(false);
+      }
+    }
+    void load();
+    return () => {
+      alive = false;
+    };
   }, []);
 
-  // ======= FILTROS =======
-  const filtered = allProjects.filter((p) => {
+  // filtros
+  const filtered = React.useMemo(() => {
     const query = q.toLowerCase();
-    const matchQuery =
-      !query ||
-      p.title.toLowerCase().includes(query) ||
-      p.subtitle?.toLowerCase().includes(query) ||
-      p.excerpt?.toLowerCase().includes(query);
-    const matchTags = activeTags.length === 0 || activeTags.some((tag) => p.tags?.includes(tag));
-    return matchQuery && matchTags;
-  });
+    return projects.filter((p) => {
+      const matchQuery =
+        !query ||
+        p.title.toLowerCase().includes(query) ||
+        p.subtitle?.toLowerCase().includes(query) ||
+        p.excerpt?.toLowerCase().includes(query);
+      const matchTags = activeTags.length === 0 || activeTags.some((tag) => p.tags?.includes(tag));
+      return matchQuery && matchTags;
+    });
+  }, [projects, q, activeTags]);
 
-  // ======= ORDENAR =======
-  const sorted = [...filtered].sort((a, b) => {
-    if (sort === 'az') return a.title.localeCompare(b.title);
-    if (sort === 'za') return b.title.localeCompare(a.title);
-    return sort === 'newest' ? Number(b.id) - Number(a.id) : Number(a.id) - Number(b.id);
-  });
+  // ordenar
+  const sorted = React.useMemo(() => {
+    const arr = [...filtered];
+    if (sort === 'az') return arr.sort((a, b) => a.title.localeCompare(b.title));
+    if (sort === 'za') return arr.sort((a, b) => b.title.localeCompare(a.title));
+    // newest e oldest usando id numérico como fallback
+    return arr.sort((a, b) =>
+      sort === 'newest' ? Number(b.id) - Number(a.id) : Number(a.id) - Number(b.id)
+    );
+  }, [filtered, sort]);
 
-  // ======= PAGINAÇÃO =======
-  const totalPages = Math.ceil(sorted.length / itemsPerPage);
+  // paginação
+  const totalPages = Math.ceil(sorted.length / itemsPerPage) || 1;
   const startIndex = (page - 1) * itemsPerPage;
   const pageItems = sorted.slice(startIndex, startIndex + itemsPerPage);
 
+  // reset página quando filtros mudam
   React.useEffect(() => {
     setPage(1);
   }, [q, sort, activeTags]);
@@ -116,9 +145,15 @@ const ProjectsPage: React.FC = () => {
         onToggleTag={toggleTag}
       />
 
-      <ProjectsGrid items={pageItems} emptyText='Nenhum projeto encontrado.' />
+      {loading && <p role='status'>A carregar…</p>}
+      {!loading && error && <p role='alert'>{error}</p>}
+      {!loading && !error && (
+        <ProjectsGrid items={pageItems} emptyText='Nenhum projeto encontrado.' />
+      )}
 
-      <Pagination currentPage={page} totalPages={totalPages} onPageChange={setPage} />
+      {!loading && !error && (
+        <Pagination currentPage={page} totalPages={totalPages} onPageChange={setPage} />
+      )}
 
       <CtaBand
         title='Tem um projeto em mente?'
