@@ -61,7 +61,7 @@ const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a className='footer__link' href='mailto:hello@example.com'>
+                <a className='footer__link' href='mailto:contact@palmirasolochi.com'>
                   Email
                 </a>
               </li>
