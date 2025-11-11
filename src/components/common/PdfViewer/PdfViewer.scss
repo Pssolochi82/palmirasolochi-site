@@ -1,0 +1,108 @@
+// src/components/common/PdfViewer/PdfViewer.scss
+
+// BEM base for the embedded PDF viewer
+// Relies on global CSS variables exported in :root (colors, spacing, radius)
+
+.pdfViewer {
+  // Layout
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--space-xl, 2rem) var(--space-md, 1rem);
+
+  // Typography
+  color: var(--color-text, #111);
+
+  &__title {
+    margin: 0 0 var(--space-lg, 1.25rem);
+    font-size: var(--font-size-2xl, 1.75rem);
+    line-height: 1.25;
+    font-weight: 700;
+    color: var(--color-heading, #0f172a);
+  }
+
+  &__frameWrap {
+    position: relative;
+    width: 100%;
+    height: 80vh; // Default desktop height; can be overridden via inline style from prop
+    background: var(--color-surface, #fff);
+    border: 1px solid var(--color-border, rgba(17, 24, 39, 0.12));
+    border-radius: var(--radius-lg, 16px);
+    box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.06));
+    overflow: hidden;
+
+    // Mobile first adjustment handled below
+  }
+
+  &__iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: transparent;
+  }
+
+  &__fallback {
+    margin: var(--space-md, 1rem) 0 0;
+    font-size: var(--font-size-sm, 0.95rem);
+    color: var(--color-text-muted, #334155);
+  }
+
+  &__link {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    color: var(--color-primary, #0a84ff);
+
+    &:hover {
+      opacity: 0.9;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-focus, #0a84ff);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm, 8px);
+    }
+  }
+}
+
+// Modifiers
+.pdfViewer--compact {
+  padding: var(--space-lg, 1.25rem) var(--space-sm, 0.75rem);
+
+  .pdfViewer__frameWrap {
+    height: 70vh;
+  }
+}
+
+// Responsiveness
+@media (max-width: 768px) {
+  .pdfViewer {
+    padding: var(--space-lg, 1.25rem) var(--space-sm, 0.75rem);
+
+    &__title {
+      font-size: var(--font-size-xl, 1.5rem);
+    }
+
+    &__frameWrap {
+      height: 70vh; // Smaller height on mobile for better viewport fit
+      border-radius: var(--radius-md, 12px);
+    }
+  }
+}
+
+// Print friendly
+@media print {
+  .pdfViewer {
+    padding: 0;
+
+    &__title,
+    &__fallback {
+      display: none;
+    }
+
+    &__frameWrap {
+      height: auto;
+      border: none;
+      box-shadow: none;
+    }
+  }
+}
