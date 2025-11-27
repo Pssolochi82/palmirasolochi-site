@@ -17,7 +17,7 @@ function withBase(path: string): string {
 /** Resolve para public/projects/<fileName> */
 function resolvePublicProjectImage(fileName?: string): string | undefined {
   if (!fileName) return undefined;
-  return withBase(`projects/${fileName}`);
+  return withBase(`projectsImages/${fileName}`);
 }
 
 /** Remove BOM, comentários // e /* *\/, e poda espaços */

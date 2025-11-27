@@ -15,7 +15,7 @@ function withBase(path: string): string {
 }
 
 /** Fallback 16:9 servido pela pasta public, sem import */
-const FALLBACK_HERO = withBase('projects/mock1.webp');
+const FALLBACK_HERO = withBase('projectsImages/mock1.webp');
 
 const formatDate = (iso?: string) => {
   if (!iso) return '';

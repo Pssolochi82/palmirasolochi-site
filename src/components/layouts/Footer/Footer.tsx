@@ -15,9 +15,9 @@ const Footer: React.FC = () => {
   return (
     <footer className='footer' role='contentinfo'>
       <div className='footer__top'>
-        <div className='footer__brand'>
+        <Link to='/' className='footer__brand' aria-label='Palmira Solochi - Home'>
           <img src={LogoWebP} alt='Logótipo Palmira Solochi' />
-        </div>
+        </Link>
 
         <nav className='footer__cols' aria-label='Footer menus'>
           <div className='footer__col'>

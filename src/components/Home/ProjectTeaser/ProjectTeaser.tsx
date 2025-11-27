@@ -48,7 +48,7 @@ const ProjectTeaser: React.FC<ProjectTeaserProps> = ({
           </h2>
           {text && <p className='projTeaser__text'>{text}</p>}
           <div className='projTeaser__actions'>
-            <Button href={ctaHref} variant='primary' size='md'>
+            <Button href={'/projects'} variant='primary' size='md'>
               {ctaLabel}
             </Button>
           </div>

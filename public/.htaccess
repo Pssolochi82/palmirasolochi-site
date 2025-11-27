@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Mantém o index.html acessível direto
+  RewriteRule ^index\.html$ - [L]
+
+  # Se o caminho não for ficheiro nem diretório real
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+
+  # Faz fallback para index.html
+  RewriteRule . /index.html [L]
+</IfModule>

@@ -39,7 +39,6 @@ const HomePage: React.FC = () => {
         text='Trabalhos académicos, projetos pessoais e exercícios técnicos que demonstram competências em backend, bases de dados, automação de testes e desenvolvimento web.
 '
         ctaLabel='Visite os meus projectos'
-        ctaHref='/projects'
       />
     </section>
   );
