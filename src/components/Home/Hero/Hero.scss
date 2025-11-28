@@ -1,6 +1,9 @@
 // src/components/Home/Hero/Hero.scss
 .hero {
   position: relative;
+  padding-block: var(--s-16);
+  padding-inline: var(--s-12);
+  margin: 0 var(--s-8);
   padding: var(--s-16) var(--s-12);
 
   // MOBILE FIRST: auto height
@@ -15,7 +18,7 @@
 
   @media (max-width: 979px) {
     // Remove fixed height rules for mobile
-    margin: 0 var(--s-32);
+    /* margin: 0 var(--s-32); */
     min-height: 0;
     height: auto;
   }
