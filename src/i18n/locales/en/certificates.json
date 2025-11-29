@@ -1,0 +1,11 @@
+{
+  "title": "Certificates",
+  "subtitle": "Read only view. Choose a certificate to display.",
+  "controlsAria": "Select certificate",
+  "loading": "Loading…",
+  "none": "No certificates available.",
+  "error": "Failed to load certificates: {{message}}",
+  "viewerTitle": "Certificate - {{title}}",
+  "backToAbout": "Back to About",
+  "backToAboutAria": "Back to About page"
+}

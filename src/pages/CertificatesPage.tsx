@@ -5,7 +5,9 @@ import React from 'react';
 import './styles/CertificatesPage.scss';
 import PdfViewer from '../components/common/PdfViewer/PdfViewer';
 import Button from '../components/common/Button/Button';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { Lang, buildPath } from '../utils/routePaths';
 
 type CertificateItem = {
   id: string;
@@ -41,6 +43,10 @@ const CertificatesPage: React.FC = () => {
   const [loading, setLoading] = React.useState<boolean>(true);
   const [error, setError] = React.useState<string>('');
 
+  const { t } = useTranslation('certificates');
+  const { lang } = useParams<{ lang: Lang }>();
+  const currentLang: Lang = lang === 'en' ? 'en' : 'pt';
+
   React.useEffect(() => {
     let cancelled = false;
 
@@ -63,7 +69,7 @@ const CertificatesPage: React.FC = () => {
         setCurrent(initial || null);
       } catch (e: unknown) {
         const msg = e instanceof Error ? e.message : 'Unknown error';
-        if (!cancelled) setError(`Falha ao carregar certificados: ${msg}`);
+        if (!cancelled) setError(msg);
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -86,19 +92,11 @@ const CertificatesPage: React.FC = () => {
   return (
     <main className='certificatesPage' id='main-content'>
       <header className='certificatesPage__header'>
-        <h1 className='certificatesPage__title'>Certificados</h1>
-        <p className='certificatesPage__subtitle'>
-          Visualização em modo leitura. Escolhe um certificado.
-        </p>
+        <h1 className='certificatesPage__title'>{t('title')}</h1>
+        <p className='certificatesPage__subtitle'>{t('subtitle')}</p>
 
         {!loading && !error && items.length > 0 && current && (
-          <div
-            className='certificatesPage__controls'
-            role='group'
-            aria-label='Selecionar certificado'>
-            {/* <label htmlFor='cert-select' className='certificatesPage__label'>
-              Certificado
-            </label> */}
+          <div className='certificatesPage__controls' role='group' aria-label={t('controlsAria')}>
             <select
               id='cert-select'
               className='certificatesPage__select'
@@ -113,21 +111,24 @@ const CertificatesPage: React.FC = () => {
           </div>
         )}
 
-        {loading && <p className='certificatesPage__status'>A carregar…</p>}
-        {!loading && error && <p className='certificatesPage__error'>{error}</p>}
-        {!loading && !error && items.length === 0 && (
-          <p className='certificatesPage__status'>Nenhum certificado disponível.</p>
+        {loading && <p className='certificatesPage__status'>{t('loading')}</p>}
+
+        {!loading && error && (
+          <p className='certificatesPage__error'>{t('error', { message: error })}</p>
         )}
 
-        {/* Botão voltar para /about */}
+        {!loading && !error && items.length === 0 && (
+          <p className='certificatesPage__status'>{t('none')}</p>
+        )}
 
+        {/* Botão voltar para /about multilíngua */}
         <Button
           className='certificatesPage__actions'
-          href='/about'
+          href={buildPath('about', currentLang)}
           variant='secondary'
           size='md'
-          aria-label='Voltar à página Sobre'>
-          Voltar a Sobre
+          aria-label={t('backToAboutAria')}>
+          {t('backToAbout')}
         </Button>
       </header>
 
@@ -135,7 +136,7 @@ const CertificatesPage: React.FC = () => {
         <div className='certificatesPage__viewer'>
           <PdfViewer
             src={current.src}
-            title={`Certificado - ${current.title}`}
+            title={t('viewerTitle', { title: current.title })}
             showHeading={false}
           />
         </div>

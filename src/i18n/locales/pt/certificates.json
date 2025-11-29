@@ -1,0 +1,11 @@
+{
+  "title": "Certificados",
+  "subtitle": "Visualização em modo leitura. Escolhe um certificado.",
+  "controlsAria": "Selecionar certificado",
+  "loading": "A carregar…",
+  "none": "Nenhum certificado disponível.",
+  "error": "Falha ao carregar certificados: {{message}}",
+  "viewerTitle": "Certificado - {{title}}",
+  "backToAbout": "Voltar a Sobre",
+  "backToAboutAria": "Voltar à página Sobre"
+}
