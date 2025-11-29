@@ -1,35 +1,41 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="pt-PT" data-theme="light">
   <head>
     <meta charset="UTF-8" />
+
+    <!-- Google Tag Manager -->
+    <script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-KF3WL4V7');
+    </script>
+    <!-- End Google Tag Manager -->
+
     <link rel="icon" type="image/png" href="%BASE_URL%icons/icon-192.png" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <!-- Fallback genérico, será substituído pelo react-helmet-async -->
-    <meta
-      name="description"
-      content="Portfólio profissional de Palmira Solochi, especialista em Mainframe, Testes e Desenvolvimento de Software." />
-    <title>Palmira Solochi | Professional Portfolio</title>
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JQ2L2TJJWP"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      gtag('config', 'G-JQ2L2TJJWP');
-    </script>
+    <!-- Fallback (override será feito pelo react-helmet) -->
+    <meta name="description" content="Portfólio profissional de Palmira Solochi." />
+    <title>Palmira Solochi | Portfolio</title>
 
     <!-- Vite entry -->
     <script type="module" src="/src/main.tsx"></script>
   </head>
+
   <body>
-    <script>
-      // document.body.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
-    </script>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+      <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-KF3WL4V7"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <div id="root"></div>
     <div id="modal-root"></div>
   </body>
