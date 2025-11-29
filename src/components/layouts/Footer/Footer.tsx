@@ -2,20 +2,27 @@
 'use strict';
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import './Footer.scss';
 
-// Passo 1: Import image.
+// Import images
 import LogoWebP from '../../../assets/Logo.webp';
 import LogoLegal from '../../../assets/logo_theHumanTechDigitals.svg';
+import { buildPath, Lang } from '../../../utils/routePaths';
 // -----------------------------------------------------------------
 
 const Footer: React.FC = () => {
   const year = new Date().getFullYear();
+  const { lang } = useParams<{ lang: Lang }>();
+  const currentLang: Lang = lang === 'en' ? 'en' : 'pt';
+
   return (
     <footer className='footer' role='contentinfo'>
       <div className='footer__top'>
-        <Link to='/' className='footer__brand' aria-label='Palmira Solochi - Home'>
+        <Link
+          to={buildPath('home', currentLang)}
+          className='footer__brand'
+          aria-label='Palmira Solochi - Home'>
           <img src={LogoWebP} alt='Logótipo Palmira Solochi' />
         </Link>
 
@@ -24,17 +31,17 @@ const Footer: React.FC = () => {
             <h3 className='footer__heading'>Site</h3>
             <ul className='footer__list'>
               <li>
-                <Link className='footer__link' to='/about'>
+                <Link className='footer__link' to={buildPath('about', currentLang)}>
                   Sobre
                 </Link>
               </li>
               <li>
-                <Link className='footer__link' to='/projects'>
+                <Link className='footer__link' to={buildPath('projects', currentLang)}>
                   Projetos
                 </Link>
               </li>
               <li>
-                <Link className='footer__link' to='/contact'>
+                <Link className='footer__link' to={buildPath('contact', currentLang)}>
                   Contacto
                 </Link>
               </li>
