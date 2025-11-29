@@ -53,18 +53,19 @@
   }
 
   /* Variants */
-  &--primary {
+  &--primary,
+  --secondary {
     --btn-bg: var(--color-primary);
     --btn-border: var(--color-primary);
     --btn-text: #fff;
   }
 
-  &--secondary {
+  /*  &--secondary {
     --btn-bg: var(--color-surface);
     --btn-border: var(--color-border);
     --btn-text: var(--color-text);
     --btn-bg-hover: color-mix(in srgb, var(--color-surface) 85%, #fff 15%);
-  }
+  } */
 
   &--ghost {
     --btn-bg: transparent;

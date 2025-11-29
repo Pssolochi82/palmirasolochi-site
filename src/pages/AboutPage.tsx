@@ -40,7 +40,10 @@ const AboutPage: React.FC = () => {
           label: t('hero.ctaPrimaryLabel'),
           href: buildPath('contact', currentLang),
         }}
-        ctaSecondary={undefined}
+        ctaSecondary={{
+          label: t('hero.ctaSecondaryLabel'), // ← NOVO
+          href: buildPath('certificates', currentLang), // ← NOVO
+        }}
       />
 
       <IntroBannerAbout quotes={introQuotes} ariaLabel={t('intro.ariaLabel')} />

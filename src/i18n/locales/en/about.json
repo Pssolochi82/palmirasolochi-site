@@ -3,7 +3,8 @@
     "title": "I am Palmira Solochi!",
     "text": "From law to QA (Selenium, BDD) and programming (COBOL, Java). A story of career change, faith and determination that shows it is never too late to start again.",
     "imageAlt": "Professional portrait of Palmira Solochi",
-    "ctaPrimaryLabel": "Let’s talk"
+    "ctaPrimaryLabel": "Let’s talk",
+    "ctaSecondaryLabel": "View Certificates"
   },
   "intro": {
     "ariaLabel": "Quote describing how I work",
