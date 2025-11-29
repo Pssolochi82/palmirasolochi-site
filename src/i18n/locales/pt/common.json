@@ -1,0 +1,11 @@
+{
+  "language": "Português",
+  "menu": {
+    "home": "Início",
+    "about": "Sobre",
+    "projects": "Projetos",
+    "contact": "Contacto",
+    "curriculum": "Currículo",
+    "certificates": "Certificados"
+  }
+}

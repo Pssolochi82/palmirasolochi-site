@@ -1,0 +1,11 @@
+{
+  "language": "English",
+  "menu": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "contact": "Contact",
+    "curriculum": "Resume",
+    "certificates": "Certificates"
+  }
+}
