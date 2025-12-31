@@ -5,6 +5,7 @@ import React from 'react';
 import './ProjectCard.scss';
 import Button from '../../common/Button/Button';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 export interface ProjectLinks {
   live?: string;
@@ -42,9 +43,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     if (links?.details) {
       return (
         <h3 className='projectCard__title'>
-          <a className='projectCard__titleLink' href={links.details}>
+          <Link className='projectCard__titleLink' to={links.details}>
             {title}
-          </a>
+          </Link>
         </h3>
       );
     }
@@ -91,6 +92,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
               {t('card.liveLabel')}
             </Button>
           )}
+
           {links?.repo && (
             <Button
               href={links.repo}
@@ -102,6 +104,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
               {t('card.repoLabel')}
             </Button>
           )}
+
           {links?.details && (
             <Button
               href={links.details}

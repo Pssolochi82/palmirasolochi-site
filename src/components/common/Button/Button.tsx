@@ -2,6 +2,8 @@
 'use strict';
 
 import React from 'react';
+import { Link } from 'react-router-dom';
+import type { LinkProps } from 'react-router-dom';
 import './Button.scss';
 
 type ButtonVariant = 'primary' | 'secondary' | 'ghost';
@@ -23,36 +25,48 @@ type CommonProps = {
 type ButtonAsButton = CommonProps &
   Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'disabled' | 'title'> & {
     href?: undefined;
+    to?: undefined;
   };
 
 type ButtonAsLink = CommonProps &
   Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'title'> & {
     href: string;
+    to?: undefined;
     target?: string;
     rel?: string;
   };
 
-export type ButtonProps = ButtonAsButton | ButtonAsLink;
+type ButtonAsRouterLink = CommonProps &
+  Omit<LinkProps, 'className' | 'to'> & {
+    to: string;
+    href?: undefined;
+  };
 
-/**
- * Button (BEM)
- * - Accessible, keyboard-friendly, and uses CSS variables.
- * - Renders <button> by default; <a> if `href` is provided.
- */
-const Button: React.FC<ButtonProps> = ({
-  children,
-  variant = 'primary',
-  size = 'md',
-  block = false,
-  disabled = false,
-  loading = false,
-  iconLeft,
-  iconRight,
-  className,
-  href,
-  title,
-  ...rest
-}) => {
+export type ButtonProps = ButtonAsButton | ButtonAsLink | ButtonAsRouterLink;
+
+function isInternalPath(path: string): boolean {
+  if (!path) return false;
+  if (path.startsWith('http://')) return false;
+  if (path.startsWith('https://')) return false;
+  if (path.startsWith('mailto:')) return false;
+  if (path.startsWith('tel:')) return false;
+  return path.startsWith('/');
+}
+
+const Button: React.FC<ButtonProps> = (props) => {
+  const {
+    children,
+    variant = 'primary',
+    size = 'md',
+    block = false,
+    disabled = false,
+    loading = false,
+    iconLeft,
+    iconRight,
+    className,
+    title,
+  } = props;
+
   const isDisabled = disabled || loading;
 
   const classes = [
@@ -84,34 +98,97 @@ const Button: React.FC<ButtonProps> = ({
     </>
   );
 
-  if (href) {
-    const linkProps = rest as React.AnchorHTMLAttributes<HTMLAnchorElement>;
+  if ('to' in props && typeof props.to === 'string') {
+    const { to, onClick, replace, state, reloadDocument, preventScrollReset } = props;
+
     return (
-      <a
-        {...linkProps}
-        href={href}
+      <Link
+        to={to}
         className={classes}
         aria-disabled={isDisabled ? true : undefined}
-        tabIndex={isDisabled ? -1 : linkProps.tabIndex}
+        tabIndex={isDisabled ? -1 : undefined}
+        title={title}
+        replace={replace}
+        state={state}
+        reloadDocument={reloadDocument}
+        preventScrollReset={preventScrollReset}
+        onClick={(e) => {
+          if (isDisabled) {
+            e.preventDefault();
+            return;
+          }
+          if (onClick) onClick(e);
+        }}>
+        {content}
+      </Link>
+    );
+  }
+
+  if ('href' in props && typeof props.href === 'string') {
+    const { href } = props;
+
+    if (isInternalPath(href)) {
+      const { onClick } = props as Omit<ButtonAsLink, 'href'> & { href: string };
+
+      return (
+        <Link
+          to={href}
+          className={classes}
+          aria-disabled={isDisabled ? true : undefined}
+          tabIndex={isDisabled ? -1 : undefined}
+          title={title}
+          onClick={(e) => {
+            if (isDisabled) {
+              e.preventDefault();
+              return;
+            }
+            if (onClick) onClick(e as unknown as React.MouseEvent<HTMLAnchorElement>);
+          }}>
+          {content}
+        </Link>
+      );
+    }
+
+    const linkProps = props as ButtonAsLink;
+    const { onClick, target, rel, tabIndex, ...rest } = linkProps;
+
+    return (
+      <a
+        {...rest}
+        href={href}
+        target={target}
+        rel={rel}
+        className={classes}
+        aria-disabled={isDisabled ? true : undefined}
+        tabIndex={isDisabled ? -1 : tabIndex}
         title={title}
         onClick={(e) => {
-          if (isDisabled) e.preventDefault();
-          if (linkProps.onClick && !isDisabled) linkProps.onClick(e);
+          if (isDisabled) {
+            e.preventDefault();
+            return;
+          }
+          if (onClick) onClick(e);
         }}>
         {content}
       </a>
     );
   }
 
-  const buttonProps = rest as React.ButtonHTMLAttributes<HTMLButtonElement>;
+  const buttonProps = props as ButtonAsButton;
+  const { type, onClick, ...rest } = buttonProps;
+
   return (
     <button
-      {...buttonProps}
-      type={buttonProps.type ?? 'button'}
+      {...rest}
+      type={type ?? 'button'}
       className={classes}
       disabled={isDisabled}
       aria-busy={loading || undefined}
-      title={title}>
+      title={title}
+      onClick={(e) => {
+        if (isDisabled) return;
+        if (onClick) onClick(e);
+      }}>
       {content}
     </button>
   );

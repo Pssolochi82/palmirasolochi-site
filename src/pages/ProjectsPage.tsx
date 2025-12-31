@@ -43,22 +43,33 @@ const ProjectsPage: React.FC = () => {
 
   React.useEffect(() => {
     let alive = true;
+
     async function load(): Promise<void> {
       setLoading(true);
       setError('');
+
       try {
         const src = await listProjects();
         if (!alive) return;
-        const items: ProjectGridItem[] = src.map((p) => ({
-          id: p.id,
-          title: p.title,
-          subtitle: p.subtitle,
-          excerpt: p.excerpt,
-          imageSrc: p.media?.imageSrc,
-          imageAlt: p.media?.imageAlt || p.title,
-          tags: p.tags,
-          links: p.links,
-        }));
+
+        const items: ProjectGridItem[] = src.map((p) => {
+          const details = p.slug ? buildPath('projectDetail', currentLang, p.slug) : undefined;
+
+          return {
+            id: p.id,
+            title: p.title,
+            subtitle: p.subtitle,
+            excerpt: p.excerpt,
+            imageSrc: p.media?.imageSrc,
+            imageAlt: p.media?.imageAlt || p.title,
+            tags: p.tags,
+            links: {
+              ...p.links,
+              details,
+            },
+          };
+        });
+
         setProjects(items);
       } catch (e) {
         if (!alive) return;
@@ -67,11 +78,13 @@ const ProjectsPage: React.FC = () => {
         if (alive) setLoading(false);
       }
     }
+
     void load();
+
     return () => {
       alive = false;
     };
-  }, [t]);
+  }, [t, currentLang]);
 
   const filtered = React.useMemo(() => {
     const query = q.toLowerCase();
@@ -81,7 +94,9 @@ const ProjectsPage: React.FC = () => {
         p.title.toLowerCase().includes(query) ||
         p.subtitle?.toLowerCase().includes(query) ||
         p.excerpt?.toLowerCase().includes(query);
+
       const matchTags = activeTags.length === 0 || activeTags.some((tag) => p.tags?.includes(tag));
+
       return matchQuery && matchTags;
     });
   }, [projects, q, activeTags]);

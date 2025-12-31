@@ -3,29 +3,22 @@
 
 import type { Project } from '../types/project';
 
-/** Build details route */
-export function detailsPath(slug: string): string {
-  return `/projects/${slug}`;
-}
-
 /** Prefix respecting Vite base (útil se o site não estiver no root) */
 function withBase(path: string): string {
   const base = import.meta.env.BASE_URL || '/';
   return `${base.replace(/\/+$/, '')}/${path.replace(/^\/+/, '')}`;
 }
 
-/** Resolve para public/projects/<fileName> */
+/** Resolve para public/projectsImages/<fileName> */
 function resolvePublicProjectImage(fileName?: string): string | undefined {
   if (!fileName) return undefined;
   return withBase(`projectsImages/${fileName}`);
 }
 
-/** Remove BOM, comentários // e /* *\/, e poda espaços */
+/** Remove BOM, comentários e poda espaços */
 function preprocessJson(s: string): string {
   let out = s.replace(/^\uFEFF/, '');
-  // /* block comments */
   out = out.replace(/\/\*[\s\S]*?\*\//g, '');
-  // // line comments
   out = out.replace(/(^|\s)\/\/.*$/gm, '');
   return out.trim();
 }
@@ -45,21 +38,19 @@ function normalizeRaw(input: unknown): Project[] {
   return Array.isArray(input) ? (input as Project[]) : [];
 }
 
-/** Enriquecimento: completa imageSrc e links.details */
+/** Enriquecimento: completa imageSrc. Details é responsabilidade da Page (depende do idioma). */
 function hydrate(items: Project[]): Project[] {
   return items.map((p) => {
     const imageFile = (p.media as unknown as { imageFile?: string })?.imageFile;
-    // Se o JSON já trouxer imageSrc absoluto/relativo, respeitamos; caso contrário, resolvemos a partir de public/projects
-    const imageSrc = p.media?.imageSrc
-      ? withBase(p.media.imageSrc.replace(/^\//, '')) // garante base
-      : resolvePublicProjectImage(imageFile);
 
-    const details = p.links?.details || (p.slug ? detailsPath(p.slug) : undefined);
+    const imageSrc = p.media?.imageSrc
+      ? withBase(p.media.imageSrc.replace(/^\//, ''))
+      : resolvePublicProjectImage(imageFile);
 
     return {
       ...p,
       media: { ...p.media, imageSrc },
-      links: { ...p.links, details },
+      links: { ...p.links },
     };
   });
 }
